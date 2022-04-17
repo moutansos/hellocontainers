@@ -1,0 +1,28 @@
+
+  
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Github Container Registry'
+    repository: 'moutansos/hellocontainers'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    buildContext: '.'
+    tags: |
+      latest
+      $(Build.BuildId)
+- script: |
+    sed -i.bak "s/\${buildid}/$(Build.BuildId)/" ./hellocontainters/kube.yml
+    mkdir ./dist
+  displayName: 'Kubernetes Config File Container Tag Specification'
