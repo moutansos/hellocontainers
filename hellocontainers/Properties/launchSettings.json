@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:64728",
+      "sslPort": 44397
+    }
+  },
+  "profiles": {
+    "hellocontainers": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "hello",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "HELLOCONTAINERS_MESSAGE": "My Message"
+      },
+      "applicationUrl": "https://localhost:7296;http://localhost:5296",
+      "dotnetRunMessages": true
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "hello",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "HELLOCONTAINERS_MESSAGE": "My Message"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/hello",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "HELLOCONTAINERS_MESSAGE": "My Message"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  }
+}
