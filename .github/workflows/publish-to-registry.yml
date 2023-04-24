@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Prepare Docker tags for ${{ matrix.browser }} image
+      - name: Prepare Docker tags for image
         id: prepare_docker_tags
         uses: L-Sypniewski/github-create-docker-tags-action@master
         env:
@@ -35,16 +35,12 @@ jobs:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
-      - name: Build and push Docker image for ${{ matrix.browser }}
+      - name: Build and push Docker image for
         uses: docker/build-push-action@v3
         with:
-          file: hellocontainers/Dockerfile
-          context: ./hellocontainers
+          file: Dockerfile
+          context: .
           push: true
-          tags: latest
-          platforms: linux/amd64
+          tags: ${{ steps.prepare_docker_tags.outputs.tags }}
+          platforms: linux/arm64
           labels: "org.opencontainers.image.source=https://github.com/${{ github.repository }}"
-          build-args: |
-            BROWSER=${{ matrix.browser }}
-            BASE_IMAGE=runtime-deps
-            SELF_CONTAINED=true
