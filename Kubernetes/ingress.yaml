@@ -7,11 +7,11 @@ metadata:
   labels:
     app: nginx-ingress-microk8s
   annotations:
-    nginx.ingress.kubernetes.io/default-backend: service1
+    nginx.ingress.kubernetes.io/default-backend: service1 # Doesn't seem to be working
     nginx.ingress.kubernetes.io/rewrite-target: /$1 # /$1 is needed to be able to reach controller's actions in sub-routes, e.g. users/all or users/{id}
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx # Without this 404 not found page from nginx is returned
   rules:
     - host: "<MY-DOMAIN.COM>"
       http:
