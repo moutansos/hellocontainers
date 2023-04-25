@@ -12,7 +12,7 @@ namespace hellocontainers.Controllers
         {
             var queryParams = HttpContext.Request.QueryString.ToString();
 
-            return new HelloResponse(Message, YouSaid: echo ?? "Nothing", Controller: nameof(AnotherController), QueryParams: queryParams);
+            return new HelloResponse(Message, YouSaid: echo ?? "Nothing", Controller: nameof(HelloController), QueryParams: queryParams);
         }
 
         private string Message => Environment.GetEnvironmentVariable("HELLOCONTAINERS_MESSAGE") ?? "No Message Set!";
