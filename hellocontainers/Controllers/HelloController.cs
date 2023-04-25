@@ -10,13 +10,9 @@ namespace hellocontainers.Controllers
         [HttpGet]
         public ActionResult<HelloResponse> GetResult(string? echo)
         {
-            return new HelloResponse(Message, YouSaid: echo ?? "Nothing");
-        }
+            var queryParams = HttpContext.Request.QueryString.ToString();
 
-        [HttpPost]
-        public ActionResult<HelloResponse> PostResult([FromBody]HelloRequest request)
-        {
-            return new HelloResponse(Message, YouSaid: request.Echo ?? "Nothing");
+            return new HelloResponse(Message, YouSaid: echo ?? "Nothing", Controller: nameof(AnotherController), QueryParams: queryParams);
         }
 
         private string Message => Environment.GetEnvironmentVariable("HELLOCONTAINERS_MESSAGE") ?? "No Message Set!";
