@@ -1,0 +1,46 @@
+# service-1.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service1
+  namespace: bookclub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service1
+  template:
+    metadata:
+      labels:
+        app: service1
+    spec:
+      containers:
+        - name: service1
+          image: ghcr.io/l-sypniewski/hello-containers-arm:latest
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: HELLOCONTAINERS_MESSAGE
+              value: 'Hello from Service 1!'
+      imagePullSecrets:
+        - name: ghcr-login-secret
+      nodeSelector:
+        kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+  namespace: bookclub
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: service1
+  type: ClusterIP
