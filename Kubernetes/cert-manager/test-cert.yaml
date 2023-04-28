@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-cert
+  namespace: my-namespace
+spec:
+  secretName: test-tls
+  duration: 2160h # 90d
+  renewBefore: 720h # 30d
+  issuerRef:
+    name: <MY-DOMAIN.COM>
+    kind: ClusterIssuer
+  commonName: "<MY-DOMAIN.COM>"
+  dnsNames:
+    - "<MY-DOMAIN.COM>"
+    - "<SUBDOMAIN.MY-DOMAIN.COM>"

@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: bookclub
+  namespace: my-namespace
   name: nginx-ingress-microk8s
   labels:
     app: nginx-ingress-microk8s
@@ -17,7 +17,7 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: "/service1/(.*)" # /(.*) is needed to be able to reach controller's actions in sub-routes, e.g. users/all or users/{id}
+            path: "/service1(.*)" # /(.*) is needed to be able to reach controller's actions in sub-routes, e.g. users/all or users/{id}
             backend:
               service:
                 name: service1
@@ -27,14 +27,14 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: "/service2/(.*)"
+            path: "/service2(.*)"
             backend:
               service:
                 name: service2
                 port:
                   number: 80
           - pathType: Prefix
-            path: "/service3/(.*)"
+            path: "/service3(.*)"
             backend:
               service:
                 name: service3
