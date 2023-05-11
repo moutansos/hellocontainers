@@ -10,17 +10,24 @@ namespace hellocontainers.Controllers
         [HttpGet]
         public ActionResult<HelloResponse> GetResult(string? echo)
         {
+            var requestScheme = HttpContext.Request.Scheme;
+            var isHttps = HttpContext.Request.IsHttps;
+            var print = $"{Message}, requestScheme: {requestScheme}; isHttps: {isHttps}";
+        
             var queryParams = HttpContext.Request.QueryString.ToString();
 
-            return new HelloResponse(Message, YouSaid: echo ?? "Nothing", Controller: $"{nameof(AnotherController)}, GetResult", QueryParams: queryParams);
+            return new HelloResponse(print, YouSaid: echo ?? "Nothing", Controller: $"{nameof(AnotherController)}, GetResult", QueryParams: queryParams);
         }
 
         [HttpGet("inner")]
         public ActionResult<HelloResponse> GetResultInner(string? echo)
         {
+            var requestScheme = HttpContext.Request.Scheme;
+            var isHttps = HttpContext.Request.IsHttps;
+            var print = $"{Message}, requestScheme: {requestScheme}; isHttps: {isHttps}";
             var queryParams = HttpContext.Request.QueryString.ToString();
 
-            return new HelloResponse(Message, YouSaid: echo ?? "Nothing", Controller: $"{nameof(AnotherController)}, GetResultInner", QueryParams: queryParams);
+            return new HelloResponse(print, YouSaid: echo ?? "Nothing", Controller: $"{nameof(AnotherController)}, GetResultInner", QueryParams: queryParams);
         }
 
 
