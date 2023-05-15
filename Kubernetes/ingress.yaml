@@ -12,6 +12,15 @@ metadata:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
 spec:
   ingressClassName: nginx # Without this 404 not found page from nginx is returned
+  defaultBackend: # this works (annotation doesn't)
+    service:
+      name: service3
+      port:
+        number: 80
+  tls:
+    - hosts:
+        - <MY-DOMAIN.COM>
+      secretName: test-tls-1
   rules:
     - host: "<MY-DOMAIN.COM>"
       http:
