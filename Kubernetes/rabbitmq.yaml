@@ -1,0 +1,32 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  labels:
+    app: rabbitmq
+  name: hello-world-rabbitmq
+  namespace: my-namespace
+spec:
+  replicas: 1
+  tls:
+    secretName: test-tls-1
+  image: rabbitmq:3.11.15
+  service:
+    type: LoadBalancer
+  persistence:
+    storageClassName: microk8s-hostpath
+    storage: 10
+  # resources:
+  #   requests:
+  #     cpu: 256m
+  #     memory: 1Gi
+  #   limits:
+  #     cpu: 256m
+  #     memory: 1Gi
+  rabbitmq:
+    additionalConfig: |
+      default_user= rabbit
+      default_pass = Pass
+      default_user_tags.administrator = true
+    additionalPlugins:
+      - rabbitmq_management
+      - rabbitmq_peer_discovery_k8s

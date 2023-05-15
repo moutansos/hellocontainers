@@ -23,23 +23,27 @@ spec:
                 name: service1
                 port:
                   number: 80
-    - host: "<MY-DOMAIN.COM>"
-      http:
-        paths:
           - pathType: Prefix
-            path: "/service2(.*)"
+            path: "/service2/(.*)"
             backend:
               service:
                 name: service2
                 port:
                   number: 80
           - pathType: Prefix
-            path: "/service3(.*)"
+            path: "/service3/(.*)"
             backend:
               service:
                 name: service3
                 port:
                   number: 80
+          - pathType: Prefix
+            path: /rabbit/(.*)
+            backend:
+              service:
+                name: hello-world-rabbitmq
+                port:
+                  number: 15672
 ---
 apiVersion: v1
 kind: Service
