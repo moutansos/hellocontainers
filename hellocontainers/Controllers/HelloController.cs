@@ -10,14 +10,8 @@ namespace hellocontainers.Controllers
         [HttpGet]
         public ActionResult<HelloResponse> GetResult(string? echo)
         {
-            var requestScheme = HttpContext.Request.Scheme;
-            var isHttps = HttpContext.Request.IsHttps;
-            var print = $"{Message}, requestScheme: {requestScheme}; isHttps: {isHttps}";
-            var queryParams = HttpContext.Request.QueryString.ToString();
-
-            return new HelloResponse(print, YouSaid: echo ?? "Nothing", Controller: nameof(HelloController), QueryParams: queryParams);
+            return MessagePrinter.PrintResponse(HttpContext, echo, nameof(HelloController));
         }
 
-        private string Message => Environment.GetEnvironmentVariable("HELLOCONTAINERS_MESSAGE") ?? "No Message Set!";
     }
 }

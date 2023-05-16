@@ -17,8 +17,9 @@ jobs:
         uses: L-Sypniewski/github-create-docker-tags-action@master
         env:
           IMAGE_NAME: hello-containers-arm
-          ADD_LATEST_TAG: true
+          ADD_LATEST_TAG: false
           PROJECT_NAME: ${{ github.repository_owner }}
+          CUSTOM_DOCKER_TAG: pathexperiment
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
